@@ -1,8 +1,8 @@
 [
     {
         "remote": "github",
-        "repository": "M571-cm/android_kernel_m2note",
-        "revision": "lp-5.1",
+        "repository": "M571-cm/android_kernel_meizu_m2note",
+        "revision": "cm-12.1",
         "target_path": "kernel/meizu/m2note"
     }
 ]
