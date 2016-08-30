@@ -160,6 +160,3 @@ TW_MAX_BRIGHTNESS := 255
 
 #F2FS support (only activate if kernel supports)
 #TARGET_USERIMAGES_USE_F2FS:=true
-
-# Hack for build
-$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
