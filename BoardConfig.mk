@@ -121,7 +121,6 @@ COMMON_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
 
 #EGL settings
 USE_OPENGL_RENDERER := true
-BOARD_EGL_CFG := device/meizu/m2note/egl.cfg
 
 # recovery
 #TARGET_RECOVERY_INITRC := device/meizu/m2note/recovery/init.mt6753.rc

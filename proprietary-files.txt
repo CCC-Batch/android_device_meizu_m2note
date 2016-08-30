@@ -125,7 +125,6 @@ system/etc/wifi/p2p_supplicant_overlay.conf
 system/etc/wifi/wpa_supplicant.conf
 system/etc/wifi/wpa_supplicant_overlay.conf
 system/lib/drm/libdrmmtkplugin.so
-system/lib/egl/egl.cfg
 system/lib/hw/audio.primary.mt6753.so
 system/lib/libmmsdkservice.feature_platform.so
 system/lib64/libmmsdkservice.feature_platform.so
