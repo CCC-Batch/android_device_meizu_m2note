@@ -36,11 +36,10 @@ dalvik.vm.heapsize=512m
 
 # USB MTP WHQL
 ro.sys.usb.mtp.whql.enable=0
+ro.sys.usb.storage.type=mtp,mass_storage
 
 # Power off opt in IPO
 sys.ipo.pwrdncap=2
-
-ro.sys.usb.storage.type=mtp,mass_storage
 
 # USB BICR function
 ro.sys.usb.bicr=yes
