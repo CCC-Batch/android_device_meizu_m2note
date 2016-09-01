@@ -27,12 +27,11 @@ on init
     mkdir /storage/sdcard1 0700 root root
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
-    # liuyongjie@shell.feature.app2sd.add app2sd feature for devices supported SDcard @{
-    export SECONDARY_STORAGE /storage/sdcard1
-    # @}
 
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
+
+    export SECONDARY_STORAGE /storage/sdcard1
 
     mount tmpfs tmpfs /storage/emulated mode=0755,uid=1023,gid=1023
     
@@ -42,7 +41,7 @@ on init
     symlink /storage/emulated/legacy /storage/sdcard0
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
     symlink /mnt/shell/emulated/0 /storage/emulated/0
-    symlink /storage/sdcard1 /mnt/sdcard1
+    symlink /storage/sdcard1 /mnt/sdcard2
     
 on fs
     setprop ro.crypto.fuse_sdcard true

@@ -63,8 +63,6 @@ on post-fs-data
 
 	chmod 0660 /dev/AK7345AF 
     chown system camera /dev/AK7345AF 
-
-
 #SMB
     chown system system /proc/smb/ScreenComm
     chmod 0660 /proc/smb/ScreenComm
@@ -183,7 +181,6 @@ on post-fs-data
     chown system system /sys/class/meizu/compass/compass_self_test
     chown system system /sys/class/meizu/compass/compass_id
     chown system system /sys/class/meizu/compass/compass_name
-
 #Disable for one Single loader
 # Load WiFi Driver
 #   insmod /system/lib/modules/wlan_mt.ko
@@ -193,9 +190,13 @@ on post-fs-data
     chown bluetooth bluetooth /dev/ampc0
     chmod 0660 /dev/ampc0
 
+
+
 # Add by Meizu BSP@YinShunQing for HALL
     chown system system /sys/devices/platform/gpio-keys.0/key_hall_state
+
     chmod 0440 /sys/devices/platform/gpio-keys.0/key_hall_state
+
 
 # Add by WuWeilin@BSP for power mode permission 
 	chown system system /sys/power/power_mode
@@ -203,17 +204,19 @@ on post-fs-data
     chown system system /sys/devices/mx_tsp/hall_mode
     chmod 0660 /sys/devices/mx_tsp/hall_mode
 
+
+
 # for Gesture
     chown system system /sys/devices/platform/mx-gs/gesture_control
     chmod 0660 /sys/devices/platform/mx-gs/gesture_control
     chown system system /sys/devices/platform/mx-gs/gesture_data
     chmod 0660 /sys/devices/platform/mx-gs/gesture_data
 
+
 # for notification leds
     chmod 0660 /sys/class/leds/button-backlight/trigger
     chmod 0660 /sys/class/leds/button-backlight/oneshot_blink
     chmod 0660 /sys/class/leds/button-backlight/brightness
-
 #
 # Connectivity related device nodes & configuration (end)
 #
@@ -234,13 +237,6 @@ on init
 service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbotg /storage/usbotg
     class late_start
     disabled
-
-# FLYME_BEGIN
-# FUNCTION:protect files. writed by chenwenjun
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated  .@meizu_protbox@ 1000
-    class late_start
-    socket sdcard stream 0660 media_rw system 
-# FLYME_END 2015.05.12
 
 #
 # Connectivity related services (Begin)
