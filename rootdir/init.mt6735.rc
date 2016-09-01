@@ -10,6 +10,7 @@ import init.fon.rc
 import init.volte.rc
 import init.epdg.rc
 import init.trustonic.rc
+import init.modem.rc
 
 on init
     export USBOTG_STORAGE /storage/usbotg
@@ -75,9 +76,11 @@ on fs
 
 on fs
 
-#   mount iso9660 loop@/system/etc/iAmCdRom.iso /mnt/cd-rom ro
+   mount iso9660 loop@/system/etc/iAmCdRom.iso /mnt/cd-rom ro
 
 on post-fs
+    chmod 0660 /dev/block/platform/mtk-msdc.0/by-name/nvram
+    chown root system /dev/block/platform/mtk-msdc.0/by-name/nvram
     #change permissions for mediaserver
     chown root media /proc/clkmgr/mipi_test
 
@@ -183,7 +186,7 @@ on post-fs-data
     chmod 0666 /dev/pmem_multimedia
 
     # watch dog kicker
-    write /proc/wdk "0 20 30 0 1"
+    write /proc/wdk "0 20 30"
 
     # set ptmx group to non-root
     chown root radio /dev/ptmx
@@ -241,12 +244,6 @@ on post-fs-data
     chown system system /sys/class/misc/m_acc_misc/accbatch
     chown system system /sys/class/misc/m_acc_misc/accflush
 
-    #camera flashlight sysfs
-    chmod 0644 /sys/class/flashlightdrv/kd_camera_flashlight/flash1
-    chmod 0644 /sys/class/flashlightdrv/kd_camera_flashlight/flash2
-    chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash1
-    chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash2
-
     chmod 0660 /sys/class/misc/m_mag_misc/magactive
     chmod 0660 /sys/class/misc/m_mag_misc/magdelay
     chmod 0660 /sys/class/misc/m_mag_misc/magbatch
@@ -287,19 +284,40 @@ on post-fs-data
     chmod 0660 /sys/class/misc/m_alsps_misc/alsdelay
     chmod 0660 /sys/class/misc/m_alsps_misc/alsbatch
     chmod 0660 /sys/class/misc/m_alsps_misc/alsflush
+
+    /*dixiaobing@wind-mobi.com 20150629 start*/
+    chmod 0660 /sys/class/misc/m_alsals_misc/alsactive
+    chmod 0660 /sys/class/misc/m_alsals_misc/alsdelay
+    chmod 0660 /sys/class/misc/m_alsals_misc/alsbatch
+    chmod 0660 /sys/class/misc/m_alsals_misc/alsflush
+    /*dixiaobing@wind-mobi.com 20150629 end*/
     chmod 0660 /sys/class/misc/m_alsps_misc/psactive
     chmod 0660 /sys/class/misc/m_alsps_misc/psdelay
     chmod 0660 /sys/class/misc/m_alsps_misc/psbatch
     chmod 0660 /sys/class/misc/m_alsps_misc/psflush
+    #dixiaobing@wind-mobi.com 20150525 start
+    chmod 0660 /sys/class/misc/m_alsps_misc/nonwakeupps
+    #dixiaobing@wind-mobi.com 20150525 end
+    
     chown system system /sys/class/misc/m_alsps_misc/alsactive
     chown system system /sys/class/misc/m_alsps_misc/alsdelay
     chown system system /sys/class/misc/m_alsps_misc/alsbatch
     chown system system /sys/class/misc/m_alsps_misc/alsflush
+    
+    /*dixiaobing@wind-mobi.com 20150629 start*/
+    chown system system /sys/class/misc/m_alsals_misc/alsactive
+    chown system system /sys/class/misc/m_alsals_misc/alsdelay
+    chown system system /sys/class/misc/m_alsals_misc/alsbatch
+    chown system system /sys/class/misc/m_alsals_misc/alsflush
+    /*dixiaobing@wind-mobi.com 20150629 end*/
     chown system system /sys/class/misc/m_alsps_misc/psactive
     chown system system /sys/class/misc/m_alsps_misc/psdelay
     chown system system /sys/class/misc/m_alsps_misc/psbatch
     chown system system /sys/class/misc/m_alsps_misc/psflush
-
+    #dixiaobing@wind-mobi.com 20150525 start
+    chown system system /sys/class/misc/m_alsps_misc/nonwakeupps
+    #dixiaobing@wind-mobi.com 20150525 end
+ 
     chmod 0660 /sys/class/misc/m_baro_misc/baroenablenodata
     chmod 0660 /sys/class/misc/m_baro_misc/baroactive
     chmod 0660 /sys/class/misc/m_baro_misc/barodelay
@@ -310,6 +328,21 @@ on post-fs-data
     chown system system /sys/class/misc/m_baro_misc/barodelay
     chown system system /sys/class/misc/m_baro_misc/barobatch
     chown system system /sys/class/misc/m_baro_misc/baroflush
+	
+	#dixiaobing@wind-mobi.com 20150525 start
+	#ps cali
+	chown system system /sys/class/meizu/ps/ps_calibration
+	chown system system /sys/class/meizu/ps/ps_offset
+	
+	#acc cali
+	chown system system /sys/class/meizu/acc/acc_calibration
+	chown system system /sys/class/meizu/acc/acc_x_offset
+	chown system system /sys/class/meizu/acc/acc_y_offset
+	chown system system /sys/class/meizu/acc/acc_z_offset
+	#dixiaobing@wind-mobi.com 20150525 end
+    #duanzhanyang@wind-mobi.com 20150620 begin
+	chown system system /sys/devices/mx_leds/leds_mode
+	#duanzhanyang@wind-mobi.com 20150620 end
 
     #Accdet
     chown root radio /sys/devices/platform/Accdet_Driver/driver/accdet_call_state
@@ -495,9 +528,16 @@ on post-fs-data
     chmod 0660 /dev/kd_camera_flashlight
     chmod 0660 /dev/kd_camera_hw_bus2
     chmod 0660 /dev/FM50AF
+	#liukun@wind-mobi.com 20150616 begin
+    chmod 0660 /dev/BU6429AF
+	chmod 0660 /dev/BU6429116109AF
+	chmod 0660 /dev/BU6429116134AF
+	#liukun@wind-mobi.com 20150616 end
     chmod 0660 /dev/CAM_CAL_DRV
-    chmod 0660 /dev/CAM_CAL_DRV_SUB
-
+    #oujiacheng@wind-mobi.com 2015.6.10 begin
+	chmod 0660 /dev/BU642911501AF
+	chmod 0660 /dev/BU642911502AF
+    #oujiacheng@wind-mobi.com 2015.6.10 end
     chown system camera /dev/camera-sysram
     chown system camera /dev/camera-isp
     chown system camera /dev/camera-fdvt
@@ -506,9 +546,21 @@ on post-fs-data
     chown system camera /dev/kd_camera_flashlight
     chown system camera /dev/kd_camera_hw_bus2
     chown system camera /dev/FM50AF
+	#liukun@wind-mobi.com 20150616 begin
+    chown system camera /dev/BU6429AF
+	chown system camera /dev/BU6429116109AF
+	chown system camera /dev/BU6429116134AF
+	#liukun@wind-mobi.com 20150616 end
     chown system camera /dev/CAM_CAL_DRV
-    chown system camera /dev/CAM_CAL_DRV_SUB
-
+    #oujiacheng@wind-mobi.com 2015.6.10 begin
+	chown system camera /dev/BU642911501AF
+	chown system camera /dev/BU642911502AF
+    #oujiacheng@wind-mobi.com 2015.6.10 end
+    #flash
+	#liukun begin
+	chmod 0644 /dev/flash_torch
+	chown media system /dev/flash_torch
+	#liukun end
     #MATV
     chmod 0660 /dev/MATV
     chown system media /dev/MATV
@@ -599,17 +651,10 @@ on post-fs-data
 
     # Recycle stuffs
     exec /system/bin/rm -f /cache/.ipoh.img
-
+    
     chmod 0666 /dev/exm0
 
 # End of adding by MTK drivers
-# -----------------------
-
-
-# -----------------------
-# Add by MEIZU BSP
-     setprop ro.product.mobile.name m81
-# End of adding by MEIZU BSP drivers
 # -----------------------
 
 on boot
@@ -639,8 +684,6 @@ on boot
     chown system system /sys/class/leds/red/trigger
     chown system system /sys/class/leds/green/trigger
     chown system system /sys/class/leds/blue/trigger
-    # Add by Meizu BSP@YinShunQing for button LED blink
-    chown system system /sys/class/leds/button-backlight/oneshot_blink
 
     # Permission for hibernation
     chown radio system /sys/power/tuxonice
@@ -670,14 +713,7 @@ on boot
     chmod 0660 /proc/cpufreq/cpufreq_limited_by_hevc
     chown system system /proc/cpufreq/cpufreq_limited_max_freq_by_user
     chmod 0660 /proc/cpufreq/cpufreq_limited_max_freq_by_user
-
-    chown system system /d/ged/hal/total_gpu_freq_level_count
-    chmod 0660 /d/ged/hal/total_gpu_freq_level_count
-    chown system system /d/ged/hal/custom_boost_gpu_freq
-    chmod 0660 /d/ged/hal/custom_boost_gpu_freq
-    chown system system /d/ged/hal/custom_upbound_gpu_freq
-    chmod 0660 /d/ged/hal/custom_upbound_gpu_freq
-
+    
 ##Netlog tool
    #change permissions about terminal
     chown root radio /proc/net/vlan/config
@@ -711,11 +747,14 @@ on boot
     chown system /dev/ttyGS0
     chmod 660 /dev/ttyGS1
     chown system /dev/ttyGS1
+#yangjiajun@wind-mobi.com 2015-7-27 begin
+    setprop ro.meizu.hardware.psn ${ro.boot.psn}
+#yangjiajun@wind-mobi.com 2015-7-27 end
 
 on property:ro.board.platform=mt6753
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1040000
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1300000 
 
 on property:vold.decrypt=trigger_reset_main
     start stop_modem
@@ -944,14 +983,14 @@ service dhcpcd_p2p /system/bin/dhcpcd -BK -dd
 
 service iprenew_wlan0 /system/bin/dhcpcd -n
     class main
-	user root
+	user dhcp
 	group net_admin net_raw
     disabled
     oneshot
 
 service iprenew_p2p /system/bin/dhcpcd -n
     class main
-	user root
+	user dhcp
 	group net_admin net_raw
     disabled
     oneshot
@@ -1003,35 +1042,27 @@ on property:service.pppoe_wlan0.enable=1
     on property:gsm.sim.ril.testsim=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
     write /proc/sys/net/ipv4/tcp_rto_min 200
-    write /proc/sys/net/ipv4/tcp_early_retrans 3
     on property:gsm.sim.ril.testsim=1
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
     write /proc/sys/net/ipv4/tcp_rto_min 400
-    write /proc/sys/net/ipv4/tcp_early_retrans 0
     on property:gsm.sim.ril.testsim.2=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
     write /proc/sys/net/ipv4/tcp_rto_min 200
-    write /proc/sys/net/ipv4/tcp_early_retrans 3
     on property:gsm.sim.ril.testsim.2=1
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
     write /proc/sys/net/ipv4/tcp_rto_min 400
-    write /proc/sys/net/ipv4/tcp_early_retrans 0
     on property:gsm.sim.ril.testsim.3=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
     write /proc/sys/net/ipv4/tcp_rto_min 200
-    write /proc/sys/net/ipv4/tcp_early_retrans 3
     on property:gsm.sim.ril.testsim.3=1
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
     write /proc/sys/net/ipv4/tcp_rto_min 400
-    write /proc/sys/net/ipv4/tcp_early_retrans 0
     on property:gsm.sim.ril.testsim.4=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
     write /proc/sys/net/ipv4/tcp_rto_min 200
-    write /proc/sys/net/ipv4/tcp_early_retrans 3
     on property:gsm.sim.ril.testsim.4=1
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
     write /proc/sys/net/ipv4/tcp_rto_min 400
-    write /proc/sys/net/ipv4/tcp_early_retrans 0
 
 service DMAgent /system/bin/dm_agent_binder
     class main
@@ -1173,11 +1204,26 @@ service memsicd3416x /system/bin/memsicd3416x
 	 user system
     group system
     class main
+#dixiaobing@wind-mobi.com 20150710 start     
+service memsicd3524x /system/bin/memsicd3524x
+     disabled
+	 user system
+    group system
+    class main
+     
+service ist8303 /system/bin/ist8303
+    disabled
+    user system
+    group system
+    class main
+#dixiaobing@wind-mobi.com 20150710 end 
+
 service akmd8975 /system/bin/akmd8975
     disabled
     user system
     group system
     class main
+
 
 service akmd8963 /system/bin/akmd8963
     disabled
@@ -1211,7 +1257,14 @@ service qmc5983d /system/bin/qmc5983d
 	 user system
     group system
     class main
-
+    # yudengwu@wind-mobi.com begin
+service qmcX983d /system/bin/qmcX983d
+     disabled
+	 user system
+    group system
+    class main
+	oneshot
+    # yudengwu@wind-mobi.com end
 service orientationd /system/bin/orientationd
     disabled
     user system
@@ -1441,3 +1494,13 @@ service program_binary /system/bin/program_binary_service
     user system
     group graphics
     oneshot
+
+# zhouyacheng@wind-mobi.com 2015-6-6 begin
+# for psensor calibration and color id
+service boot_init /system/bin/boot_init
+    disabled
+    oneshot
+
+on property:persist.sys.dalvik.vm.lib.2=*
+    start boot_init
+# zhouyacheng@wind-mobi.com 2015-6-6 end
