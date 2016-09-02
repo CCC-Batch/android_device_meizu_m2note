@@ -2,5 +2,3 @@
 add_lunch_combo cm_m2note-eng
 add_lunch_combo cm_m2note-userdebug
 add_lunch_combo cm_m2note-user
-
-sh device/meizu/m2note/patches/apply.sh
