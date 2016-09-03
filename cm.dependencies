@@ -1,14 +1,14 @@
 [
   {
     "remote": "github"
-    "repository": "M571-cm/android_vendor_meizu_m2note",
+    "repository": "m571-cm/android_vendor_meizu_m2note",
     "target_path": "vendor/meizu/m2note",
-    "branch": "master"
+    "branch": "cm-12.1"
   }
   {
     "remote": "github",
     "repository": "M571-cm/android_kernel_meizu_m2note",
-    "revision": "cm-12.1",
-    "target_path": "kernel/meizu/m2note"
+    "target_path": "kernel/meizu/m2note",
+    "branch": "cm-12.1"
   }
 ]

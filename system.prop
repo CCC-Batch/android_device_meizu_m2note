@@ -46,7 +46,7 @@ ro.sys.usb.storage.type=mtp,mass_storage
 ro.sys.usb.bicr=yes
 
 # USB Charge only function
-# ro.sys.usb.charging.only=yes
+ro.sys.usb.charging.only=yes
 
 # audio
 ro.camera.sound.forced=0
@@ -71,9 +71,6 @@ ro.sf.hwrotation=180
 # performance
 ro.mtk_perf_simple_start_win=1
 ro.mtk_perf_response_time=1
-
-# fix for LTE/mobile data on both SIMs
-persist.radio.mobile.data=0,0
 
 #hchua add for CTA
 dalvik.vm.checkjni=false
